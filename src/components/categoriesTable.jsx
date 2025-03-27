@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 
 import {getAllCategories} from "../services/categories/readCategories.jsx";
 import {createCategory} from "../services/categories/createCategorie.jsx";
-
+import { deleteCategory } from "../services/categories/deleteCategory.jsx";
+import { updateCategory } from "../services/categories/updateCategory.jsx";
 
 const CategoryTable = () => {
     const [categories, setCategories] = useState([]);

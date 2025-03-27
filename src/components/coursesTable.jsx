@@ -93,8 +93,8 @@ const CourseTable = () => {
                         <td className="border px-4 py-2">{course.title}</td>
                         <td className="border px-4 py-2">{course.description}</td>
                         <td className="border px-4 py-2">${course.price}</td>
-                        <td className="border px-4 py-2">{course.category?.name || "N/A"}</td>
-                        <td className="border px-4 py-2">{course.instructor?.username || "N/A"}</td>
+                        <td className="border px-4 py-2">{course.categoryId || "N/A"}</td>
+                        <td className="border px-4 py-2">{course.instructorId || "N/A"}</td>
                         <td className="border px-4 py-2 flex justify-center gap-2">
                             <button onClick={() => handleUpdate(course.id)}
                                     className="px-3 py-1 bg-yellow-500 text-white rounded">
