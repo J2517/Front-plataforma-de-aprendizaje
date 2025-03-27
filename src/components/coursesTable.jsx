@@ -4,9 +4,12 @@ import {createCourse} from "../services/courses/createCourse.jsx";
 import {getCourses} from "../services/courses/readCourses.jsx";
 import {deleteCourse} from "../services/courses/deleteCourse.jsx";
 import {updateCourse} from "../services/courses/updateCourse.jsx";
+import {getCourseById} from "../services/courses/readCourses.jsx";
 
 const CourseTable = () => {
     const [courses, setCourses] = useState([]);
+    const [searchId, setSearchId] = useState("");
+    const [filteredCourse, setFilteredCourse] = useState(null);
 
     useEffect(() => {
         fetchCourses();
@@ -59,6 +62,20 @@ const CourseTable = () => {
         }
     };
 
+    const handleSearch = async () => {
+        if (!searchId) {
+            alert("Ingrese un ID válido");
+            return;
+        }
+        try {
+            const course = await getCourseById(searchId);
+            setFilteredCourse(course);
+        } catch (error) {
+            alert("Curso no encontrado");
+            setFilteredCourse(null);
+        }
+    };
+
     const handleDelete = async (id) => {
         if (!window.confirm("¿Estás seguro de eliminar este curso?")) return;
         try {
@@ -71,6 +88,18 @@ const CourseTable = () => {
 
     return (
         <div className="p-4">
+            <div className="mb-4 flex items-center gap-2">
+                <input
+                    type="number"
+                    placeholder="Buscar por ID"
+                    value={searchId}
+                    onChange={(e) => setSearchId(e.target.value)}
+                    className="px-2 py-1 border border-gray-300 rounded"
+                />
+                <button onClick={handleSearch} className="px-4 py-2 bg-green-500 text-white rounded">
+                    Buscar
+                </button>
+            </div>
             <button onClick={handleCreate} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">
                 Crear Curso
             </button>
@@ -87,26 +116,47 @@ const CourseTable = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {courses.map((course) => (
-                    <tr key={course.id} className="hover:bg-gray-50">
-                        <td className="border px-4 py-2 text-center">{course.id}</td>
-                        <td className="border px-4 py-2">{course.title}</td>
-                        <td className="border px-4 py-2">{course.description}</td>
-                        <td className="border px-4 py-2">${course.price}</td>
-                        <td className="border px-4 py-2">{course.categoryId || "N/A"}</td>
-                        <td className="border px-4 py-2">{course.instructorId || "N/A"}</td>
+                {filteredCourse ? (
+                    <tr key={filteredCourse.id} className="hover:bg-gray-50">
+                        <td className="border px-4 py-2 text-center">{filteredCourse.id}</td>
+                        <td className="border px-4 py-2">{filteredCourse.title}</td>
+                        <td className="border px-4 py-2">{filteredCourse.description}</td>
+                        <td className="border px-4 py-2">${filteredCourse.price}</td>
+                        <td className="border px-4 py-2">{filteredCourse.categoryId || "N/A"}</td>
+                        <td className="border px-4 py-2">{filteredCourse.instructorId || "N/A"}</td>
                         <td className="border px-4 py-2 flex justify-center gap-2">
-                            <button onClick={() => handleUpdate(course.id)}
+                            <button onClick={() => handleUpdate(filteredCourse.id)}
                                     className="px-3 py-1 bg-yellow-500 text-white rounded">
                                 Editar
                             </button>
-                            <button onClick={() => handleDelete(course.id)}
+                            <button onClick={() => handleDelete(filteredCourse.id)}
                                     className="px-3 py-1 bg-red-500 text-white rounded">
                                 Eliminar
                             </button>
                         </td>
                     </tr>
-                ))}
+                ) : (
+                    courses.map((course) => (
+                        <tr key={course.id} className="hover:bg-gray-50">
+                            <td className="border px-4 py-2 text-center">{course.id}</td>
+                            <td className="border px-4 py-2">{course.title}</td>
+                            <td className="border px-4 py-2">{course.description}</td>
+                            <td className="border px-4 py-2">${course.price}</td>
+                            <td className="border px-4 py-2">{course.categoryId || "N/A"}</td>
+                            <td className="border px-4 py-2">{course.instructorId || "N/A"}</td>
+                            <td className="border px-4 py-2 flex justify-center gap-2">
+                                <button onClick={() => handleUpdate(course.id)}
+                                        className="px-3 py-1 bg-yellow-500 text-white rounded">
+                                    Editar
+                                </button>
+                                <button onClick={() => handleDelete(course.id)}
+                                        className="px-3 py-1 bg-red-500 text-white rounded">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    ))
+                )}
                 </tbody>
             </table>
         </div>
