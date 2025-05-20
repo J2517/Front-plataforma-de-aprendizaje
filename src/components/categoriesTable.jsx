@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import {getAllCategories} from "../services/categories/readCategories.jsx";
-import {createCategory} from "../services/categories/createCategorie.jsx";
+import { getAllCategories } from "../services/categories/readCategories.jsx";
+import { createCategory } from "../services/categories/createCategorie.jsx";
 import { deleteCategory } from "../services/categories/deleteCategory.jsx";
 import { updateCategory } from "../services/categories/updateCategory.jsx";
 import { getCategoryById } from "../services/categories/readCategories.jsx";
@@ -11,26 +11,26 @@ const CategoryTable = () => {
     const [searchId, setSearchId] = useState("");
     const [filteredCategory, setFilteredCategory] = useState(null);
 
-    useEffect(() => {
-        fetchCategories();
-    }, []);
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
-    const fetchCategories = async () => {
-        const data = await getAllCategories();
-        setCategories(data);
-    };
+  const fetchCategories = async () => {
+    const data = await getAllCategories();
+    setCategories(data);
+  };
 
-    const handleCreate = async () => {
-        const name = prompt("Ingrese el nombre de la categoría:");
-        if (!name) return;
+  const handleCreate = async () => {
+    const name = prompt("Ingrese el nombre de la categoría:");
+    if (!name) return;
 
-        try {
-            await createCategory({ name });
-            fetchCategories();
-        } catch (error) {
-            alert("Error al crear la categoría");
-        }
-    };
+    try {
+      await createCategory({ name });
+      fetchCategories();
+    } catch (error) {
+      alert("Error al crear la categoría");
+    }
+  };
 
     const handleSearch = async () => {
         if (!searchId) {
@@ -50,23 +50,23 @@ const CategoryTable = () => {
         const name = prompt("Nuevo nombre de la categoría:");
         if (!name) return;
 
-        try {
-            await updateCategory(id, { name });
-            fetchCategories();
-        } catch (error) {
-            alert("Error al actualizar la categoría");
-        }
-    };
+    try {
+      await updateCategory(id, { name });
+      fetchCategories();
+    } catch (error) {
+      alert("Error al actualizar la categoría");
+    }
+  };
 
-    const handleDelete = async (id) => {
-        if (!window.confirm("¿Estás seguro de eliminar esta categoría?")) return;
-        try {
-            await deleteCategory(id);
-            fetchCategories();
-        } catch (error) {
-            alert("Error al eliminar la categoría");
-        }
-    };
+  const handleDelete = async (id) => {
+    if (!window.confirm("¿Estás seguro de eliminar esta categoría?")) return;
+    try {
+      await deleteCategory(id);
+      fetchCategories();
+    } catch (error) {
+      alert("Error al eliminar la categoría");
+    }
+  };
 
     return (
         <div className="p-4">
