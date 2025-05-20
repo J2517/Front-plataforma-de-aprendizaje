@@ -3,6 +3,9 @@ import UserPage from "./pages/UserPage.jsx";
 import CoursesPage from "./pages/coursesPage.jsx";
 import CategoriesPage from "./pages/categoriesPage.jsx";
 import ContentPage from "./pages/contentPage.jsx";
+import EnrollmentsPage from "./pages/enrollmentsPage.jsx";
+import PaymentsPage from "./pages/paymentsPage.jsx";
+
 
 const AppRouter = () => {
     return (
@@ -13,6 +16,8 @@ const AppRouter = () => {
                 <Route path="/categories" element={<CategoriesPage />} />
                 <Route path="/content" element={<ContentPage />} />
                 <Route path="*" element={<Navigate to="/404" />} />
+                <Route path="/enrollments" element={<EnrollmentsPage />} />
+                <Route path="/payments" element={<PaymentsPage />} />
             </Routes>
         </Router>
     );
