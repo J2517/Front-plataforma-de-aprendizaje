@@ -1,13 +1,12 @@
-// src/components/ExamSelectionForm.jsx
 import React, { useState } from 'react';
 
-const ExamSelectionForm = ({ onStartExam }) => {
+const ExamSelectionForm = ({ onSelection }) => {
   const [examId, setExamId] = useState('');
   const [studentId, setStudentId] = useState('');
 
-  const handleStart = () => {
+  const handleClick = (mode) => {
     if (examId && studentId) {
-      onStartExam(examId, studentId);
+      onSelection(examId, studentId, mode);
     }
   };
 
@@ -32,12 +31,20 @@ const ExamSelectionForm = ({ onStartExam }) => {
           className="border px-3 py-2 rounded w-full"
         />
       </div>
-      <button
-        onClick={handleStart}
-        className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-      >
-        Iniciar Examen
-      </button>
+      <div className="flex space-x-4">
+        <button
+          onClick={() => handleClick('start')}
+          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+        >
+          Realizar Examen
+        </button>
+        <button
+          onClick={() => handleClick('results')}
+          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+        >
+          Ver Resultados
+        </button>
+      </div>
     </div>
   );
 };
