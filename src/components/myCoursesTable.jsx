@@ -49,9 +49,9 @@ const MyCoursesTable = () => {
                 <tbody>
                     {courses.map((c, i) => (
                         <tr key={i} className="hover:bg-gray-50">
-                            <td className="border px-4 py-2">{c.courseTitle}</td>
-                            <td className="border px-4 py-2">{c.enrollmentDate}</td>
-                            <td className="border px-4 py-2">{c.status}</td>
+                            <td className="border px-4 py-2">{c.title}</td>
+                            <td className="border px-4 py-2">{c.createdAt}</td>
+                            <td className="border px-4 py-2">En progreso</td>
                         </tr>
                     ))}
                 </tbody>
