@@ -34,9 +34,9 @@ const ExamResults = ({ examId, studentId }) => {
       <h2 className="text-xl font-semibold mb-4">Resultados del Examen</h2>
 
       <p>Puntaje obtenido: {result.score}</p>
-      <p>Respuestas Correctas: {result.correctAnswers}</p>
+      {/* <p>Respuestas Correctas: {result.correctAnswers}</p>
       <p>Respuestas Incorrectas: {result.incorrectAnswers}</p>
-      <p>Comentarios: {result.comments}</p>
+      <p>Comentarios: {result.comments}</p> */}
     </div>
   );
 };
